@@ -4,6 +4,16 @@ import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuthStore from "../store/authStore";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faUser,
+    faEnvelope,
+    faLock,
+    faShieldHalved,
+    faUserPlus,
+    faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 
 const registerSchema = z
     .object({
@@ -73,16 +83,21 @@ const RegisterPage = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Full Name
                         </label>
-                        <input
-                            {...register("name")}
-                            type="text"
-                            placeholder="John Doe"
-                            className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition
-                                ${errors.name
-                                    ? "border-red-500 focus:border-red-500"
-                                    : "border-gray-300 focus:border-blue-500"
-                                }`}
-                        />
+                        <div className="relative">
+                            <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                <FontAwesomeIcon icon={faUser} className="text-sm" />
+                            </span>
+                            <input
+                                {...register("name")}
+                                type="text"
+                                placeholder="John Doe"
+                                className={`w-full pl-9 pr-4 py-3 rounded-lg border text-sm outline-none transition
+                                    ${errors.name
+                                        ? "border-red-500 focus:border-red-500"
+                                        : "border-gray-300 focus:border-blue-500"
+                                    }`}
+                            />
+                        </div>
                         {errors.name && (
                             <p className="text-red-500 text-xs mt-1">
                                 {errors.name.message}
@@ -95,16 +110,21 @@ const RegisterPage = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Email Address
                         </label>
-                        <input
-                            {...register("email")}
-                            type="email"
-                            placeholder="john@gmail.com"
-                            className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition
-                                ${errors.email
-                                    ? "border-red-500 focus:border-red-500"
-                                    : "border-gray-300 focus:border-blue-500"
-                                }`}
-                        />
+                        <div className="relative">
+                            <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                <FontAwesomeIcon icon={faEnvelope} className="text-sm" />
+                            </span>
+                            <input
+                                {...register("email")}
+                                type="email"
+                                placeholder="john@gmail.com"
+                                className={`w-full pl-9 pr-4 py-3 rounded-lg border text-sm outline-none transition
+                                    ${errors.email
+                                        ? "border-red-500 focus:border-red-500"
+                                        : "border-gray-300 focus:border-blue-500"
+                                    }`}
+                            />
+                        </div>
                         {errors.email && (
                             <p className="text-red-500 text-xs mt-1">
                                 {errors.email.message}
@@ -117,16 +137,21 @@ const RegisterPage = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Password
                         </label>
-                        <input
-                            {...register("password")}
-                            type="password"
-                            placeholder="••••••••"
-                            className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition
-                                ${errors.password
-                                    ? "border-red-500 focus:border-red-500"
-                                    : "border-gray-300 focus:border-blue-500"
-                                }`}
-                        />
+                        <div className="relative">
+                            <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                <FontAwesomeIcon icon={faLock} className="text-sm" />
+                            </span>
+                            <input
+                                {...register("password")}
+                                type="password"
+                                placeholder="••••••••"
+                                className={`w-full pl-9 pr-4 py-3 rounded-lg border text-sm outline-none transition
+                                    ${errors.password
+                                        ? "border-red-500 focus:border-red-500"
+                                        : "border-gray-300 focus:border-blue-500"
+                                    }`}
+                            />
+                        </div>
                         {errors.password && (
                             <p className="text-red-500 text-xs mt-1">
                                 {errors.password.message}
@@ -139,16 +164,21 @@ const RegisterPage = () => {
                         <label className="block text-sm font-medium text-gray-700 mb-1">
                             Confirm Password
                         </label>
-                        <input
-                            {...register("confirmPassword")}
-                            type="password"
-                            placeholder="••••••••"
-                            className={`w-full px-4 py-3 rounded-lg border text-sm outline-none transition
-                                ${errors.confirmPassword
-                                    ? "border-red-500 focus:border-red-500"
-                                    : "border-gray-300 focus:border-blue-500"
-                                }`}
-                        />
+                        <div className="relative">
+                            <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                <FontAwesomeIcon icon={faShieldHalved} className="text-sm" />
+                            </span>
+                            <input
+                                {...register("confirmPassword")}
+                                type="password"
+                                placeholder="••••••••"
+                                className={`w-full pl-9 pr-4 py-3 rounded-lg border text-sm outline-none transition
+                                    ${errors.confirmPassword
+                                        ? "border-red-500 focus:border-red-500"
+                                        : "border-gray-300 focus:border-blue-500"
+                                    }`}
+                            />
+                        </div>
                         {errors.confirmPassword && (
                             <p className="text-red-500 text-xs mt-1">
                                 {errors.confirmPassword.message}
@@ -161,38 +191,39 @@ const RegisterPage = () => {
                         type="submit"
                         disabled={isLoading}
                         className="w-full bg-blue-600 text-white py-3 rounded-lg font-semibold
-                        hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                        hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed
+                        flex items-center justify-center gap-2"
                     >
+                        <FontAwesomeIcon
+                            icon={isLoading ? faSpinner : faUserPlus}
+                            className={isLoading ? "animate-spin" : ""}
+                        />
                         {isLoading ? "Creating account..." : "Create Account"}
                     </button>
 
                     {/* Google Register */}
                     <a
-                    href={`${import.meta.env.VITE_API_URL}/auth/google`}
-                    className="w-full flex items-center justify-center gap-3 border border-gray-300
-                    py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
+                        href={`${import.meta.env.VITE_API_URL}/auth/google`}
+                        className="w-full flex items-center justify-center gap-3 border border-gray-300
+                        py-3 rounded-lg text-sm font-medium text-gray-700 hover:bg-gray-50 transition"
                     >
-                        <img
-                            src="https://www.svgrepo.com/show/475656/google-color.svg"
-                            alt="google"
-                            className="w-5 h-5"
-                        />
+                        <FontAwesomeIcon icon={faGoogle} className="text-base text-red-500" />
                         Continue with Google
                     </a>
 
                 </form>
 
-            {/* Footer */}
-            <p className="text-center text-sm text-gray-500 mt-6">
-                Already have an account?{" "}
-                <Link to="/login" className="text-blue-600 font-medium hover:underline">
-                    Login here
-                </Link>
-            </p>
+                {/* Footer */}
+                <p className="text-center text-sm text-gray-500 mt-6">
+                    Already have an account?{" "}
+                    <Link to="/login" className="text-blue-600 font-medium hover:underline">
+                        Login here
+                    </Link>
+                </p>
 
+            </div>
         </div>
-    </div >
-  );
+    );
 };
 
 export default RegisterPage;

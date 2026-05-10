@@ -7,6 +7,19 @@ import toast from "react-hot-toast";
 import useAuthStore from "../store/authStore";
 import useBookingStore from "../store/bookingStore";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faArrowLeft,
+    faUser,
+    faEnvelope,
+    faMobileScreen,
+    faCalendarDays,
+    faClock,
+    faNoteSticky,
+    faCircleCheck,
+    faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+
 const bookingSchema = z.object({
     name: z
         .string()
@@ -32,7 +45,6 @@ const BookingPage = () => {
 
     const { expertName, date, timeSlot } = location.state || {};
 
-    // Redirect if no booking state
     useEffect(() => {
         if (!location.state) {
             toast.error("Invalid booking. Please select a slot first.");
@@ -77,26 +89,13 @@ const BookingPage = () => {
         <div className="min-h-screen bg-gray-50 py-10 px-6">
             <div className="max-w-2xl mx-auto">
 
-                {/* Header */}
                 <div className="mb-8">
                     <button
                         onClick={() => navigate(-1)}
                         className="flex items-center gap-2 text-gray-500 hover:text-gray-700
-              text-sm mb-4 transition"
+                        text-sm mb-4 transition"
                     >
-                        <svg
-                            className="w-4 h-4"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                        >
-                            <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M15 19l-7-7 7-7"
-                            />
-                        </svg>
+                        <FontAwesomeIcon icon={faArrowLeft} className="w-4 h-4" />
                         Back
                     </button>
                     <h1 className="text-2xl font-bold text-gray-800">
@@ -107,7 +106,6 @@ const BookingPage = () => {
                     </p>
                 </div>
 
-                {/* Booking Summary Card */}
                 <div className="bg-blue-50 border border-blue-200 rounded-2xl p-6 mb-8">
                     <h2 className="text-sm font-semibold text-blue-600 uppercase tracking-wide mb-3">
                         Session Summary
@@ -136,7 +134,6 @@ const BookingPage = () => {
                     </div>
                 </div>
 
-                {/* Booking Form */}
                 <div className="bg-white rounded-2xl shadow-md p-8">
                     <h2 className="text-lg font-bold text-gray-800 mb-6">
                         Your Details
@@ -144,21 +141,25 @@ const BookingPage = () => {
 
                     <form onSubmit={handleSubmit(onSubmit)} className="space-y-5">
 
-                        {/* Name */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Full Name
                             </label>
-                            <input
-                                {...register("name")}
-                                type="text"
-                                placeholder="John Doe"
-                                className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                                    ${errors.name
-                                        ? "border-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:border-blue-500"
-                                    }`}
-                            />
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                    <FontAwesomeIcon icon={faUser} className="text-sm" />
+                                </span>
+                                <input
+                                    {...register("name")}
+                                    type="text"
+                                    placeholder="John Doe"
+                                    className={`w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none transition
+                                        ${errors.name
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-blue-500"
+                                        }`}
+                                />
+                            </div>
                             {errors.name && (
                                 <p className="text-red-500 text-xs mt-1">
                                     {errors.name.message}
@@ -166,21 +167,25 @@ const BookingPage = () => {
                             )}
                         </div>
 
-                        {/* Email */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Email Address
                             </label>
-                            <input
-                                {...register("email")}
-                                type="email"
-                                placeholder="john@gmail.com"
-                                className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                                    ${errors.email
-                                        ? "border-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:border-blue-500"
-                                    }`}
-                            />
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                    <FontAwesomeIcon icon={faEnvelope} className="text-sm" />
+                                </span>
+                                <input
+                                    {...register("email")}
+                                    type="email"
+                                    placeholder="john@gmail.com"
+                                    className={`w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none transition
+                                        ${errors.email
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-blue-500"
+                                        }`}
+                                />
+                            </div>
                             {errors.email && (
                                 <p className="text-red-500 text-xs mt-1">
                                     {errors.email.message}
@@ -188,21 +193,25 @@ const BookingPage = () => {
                             )}
                         </div>
 
-                        {/* Phone */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Phone Number
                             </label>
-                            <input
-                                {...register("phone")}
-                                type="tel"
-                                placeholder="9876543210"
-                                className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                                    ${errors.phone
-                                        ? "border-red-500 focus:border-red-500"
-                                        : "border-gray-300 focus:border-blue-500"
-                                    }`}
-                            />
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                    <FontAwesomeIcon icon={faMobileScreen} className="text-sm" />
+                                </span>
+                                <input
+                                    {...register("phone")}
+                                    type="tel"
+                                    placeholder="9876543210"
+                                    className={`w-full pl-9 pr-4 py-3 rounded-xl border text-sm outline-none transition
+                                        ${errors.phone
+                                            ? "border-red-500 focus:border-red-500"
+                                            : "border-gray-300 focus:border-blue-500"
+                                        }`}
+                                />
+                            </div>
                             {errors.phone && (
                                 <p className="text-red-500 text-xs mt-1">
                                     {errors.phone.message}
@@ -210,45 +219,54 @@ const BookingPage = () => {
                             )}
                         </div>
 
-                        {/* Date — Read Only */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Date
                             </label>
-                            <input
-                                type="text"
-                                value={
-                                    date
-                                        ? new Date(date).toLocaleDateString("en-US", {
-                                            weekday: "long",
-                                            year: "numeric",
-                                            month: "long",
-                                            day: "numeric",
-                                        })
-                                        : ""
-                                }
-                                readOnly
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200
-                                bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
-                            />
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                    <FontAwesomeIcon icon={faCalendarDays} className="text-sm" />
+                                </span>
+                                <input
+                                    type="text"
+                                    value={
+                                        date
+                                            ? new Date(date).toLocaleDateString("en-US", {
+                                                weekday: "long",
+                                                year: "numeric",
+                                                month: "long",
+                                                day: "numeric",
+                                            })
+                                            : ""
+                                    }
+                                    readOnly
+                                    className="w-full pl-9 pr-4 py-3 rounded-xl border border-gray-200
+                                    bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
+                                />
+                            </div>
                         </div>
 
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Time Slot
                             </label>
-                            <input
-                                type="text"
-                                value={timeSlot || ""}
-                                readOnly
-                                className="w-full px-4 py-3 rounded-xl border border-gray-200
-                                bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
-                            />
+                            <div className="relative">
+                                <span className="absolute inset-y-0 left-3 flex items-center text-gray-400">
+                                    <FontAwesomeIcon icon={faClock} className="text-sm" />
+                                </span>
+                                <input
+                                    type="text"
+                                    value={timeSlot || ""}
+                                    readOnly
+                                    className="w-full pl-9 pr-4 py-3 rounded-xl border border-gray-200
+                                    bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
+                                />
+                            </div>
                         </div>
 
-                        {/* Notes */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
+                                <FontAwesomeIcon icon={faNoteSticky} className="text-gray-400 mr-1.5" />
                                 Notes{" "}
                                 <span className="text-gray-400 font-normal">(optional)</span>
                             </label>
@@ -261,40 +279,18 @@ const BookingPage = () => {
                             />
                         </div>
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             disabled={isLoading}
                             className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold
                             hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed
-                            text-sm"
+                            text-sm flex items-center justify-center gap-2"
                         >
-                            {isLoading ? (
-                                <span className="flex items-center justify-center gap-2">
-                                    <svg
-                                        className="animate-spin w-4 h-4"
-                                        fill="none"
-                                        viewBox="0 0 24 24"
-                                    >
-                                        <circle
-                                            className="opacity-25"
-                                            cx="12"
-                                            cy="12"
-                                            r="10"
-                                            stroke="currentColor"
-                                            strokeWidth="4"
-                                        />
-                                        <path
-                                            className="opacity-75"
-                                            fill="currentColor"
-                                            d="M4 12a8 8 0 018-8v8z"
-                                        />
-                                    </svg>
-                                    Confirming Booking...
-                                </span>
-                            ) : (
-                                "Confirm Booking"
-                            )}
+                            <FontAwesomeIcon
+                                icon={isLoading ? faSpinner : faCircleCheck}
+                                className={isLoading ? "animate-spin" : ""}
+                            />
+                            {isLoading ? "Confirming Booking..." : "Confirm Booking"}
                         </button>
 
                     </form>

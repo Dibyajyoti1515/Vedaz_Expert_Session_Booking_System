@@ -5,8 +5,6 @@ import useAuthStore from "../store/authStore";
 import useBookingStore from "../store/bookingStore";
 import socket from "../services/socket";
 import Loader from "../components/Loader";
-
-// Font Awesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faCalendarDays,

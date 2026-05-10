@@ -6,6 +6,13 @@ import useAuthStore from "../store/authStore";
 import useSocket from "../hooks/useSocket";
 import Loader from "../components/Loader";
 
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faStar,
+    faCalendarCheck,
+    faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+
 const ExpertDetailPage = () => {
     const { id } = useParams();
     const navigate = useNavigate();
@@ -26,7 +33,6 @@ const ExpertDetailPage = () => {
             setExpert(res.data.data);
             setSlotsByDate(res.data.data.slotsByDate);
 
-            // Auto select first available date
             const dates = Object.keys(res.data.data.slotsByDate);
             if (dates.length > 0) setSelectedDate(dates[0]);
 
@@ -41,7 +47,6 @@ const ExpertDetailPage = () => {
         fetchExpert();
     }, [fetchExpert]);
 
-    // Real time slot update via socket
     useSocket(id, ({ date, timeSlot }) => {
         setSlotsByDate((prev) => {
             const updated = { ...prev };
@@ -55,7 +60,6 @@ const ExpertDetailPage = () => {
             return updated;
         });
 
-        // Deselect if selected slot was just booked by someone else
         if (
             selectedSlot &&
             selectedSlot.time === timeSlot &&
@@ -115,11 +119,9 @@ const ExpertDetailPage = () => {
         <div className="min-h-screen bg-gray-50 py-10 px-6">
             <div className="max-w-4xl mx-auto">
 
-                {/* Expert Profile Card */}
                 <div className="bg-white rounded-2xl shadow-md p-8 mb-8">
                     <div className="flex flex-col sm:flex-row gap-6 items-start">
 
-                        {/* Avatar */}
                         <img
                             src={
                                 expert.avatar ||
@@ -129,7 +131,6 @@ const ExpertDetailPage = () => {
                             className="w-28 h-28 rounded-2xl object-cover border-4 border-blue-100"
                         />
 
-                        {/* Details */}
                         <div className="flex-1">
                             <div className="flex flex-wrap items-center gap-3 mb-2">
                                 <h1 className="text-2xl font-bold text-gray-800">
@@ -144,27 +145,22 @@ const ExpertDetailPage = () => {
                                 {expert.experience} years of experience
                             </p>
 
-                            {/* Rating */}
                             <div className="flex items-center gap-1 mb-4">
                                 {[...Array(5)].map((_, i) => (
-                                    <svg
+                                    <FontAwesomeIcon
                                         key={i}
-                                        className={`w-5 h-5 ${i < Math.floor(expert.rating)
+                                        icon={faStar}
+                                        className={`w-4 h-4 ${i < Math.floor(expert.rating)
                                             ? "text-yellow-400"
                                             : "text-gray-300"
                                             }`}
-                                        fill="currentColor"
-                                        viewBox="0 0 20 20"
-                                    >
-                                        <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                                    </svg>
+                                    />
                                 ))}
                                 <span className="text-sm text-gray-600 ml-1">
                                     ({expert.rating})
                                 </span>
                             </div>
 
-                            {/* Bio */}
                             <p className="text-gray-600 text-sm leading-relaxed">
                                 {expert.bio}
                             </p>
@@ -172,7 +168,6 @@ const ExpertDetailPage = () => {
                     </div>
                 </div>
 
-                {/* Slot Booking Section */}
                 <div className="bg-white rounded-2xl shadow-md p-8">
                     <h2 className="text-xl font-bold text-gray-800 mb-6">
                         Available Time Slots
@@ -184,7 +179,6 @@ const ExpertDetailPage = () => {
                         </p>
                     ) : (
                         <>
-                            {/* Date Tabs */}
                             <div className="flex flex-wrap gap-2 mb-6">
                                 {dates.map((date) => (
                                     <button
@@ -208,7 +202,6 @@ const ExpertDetailPage = () => {
                                 ))}
                             </div>
 
-                            {/* Time Slots Grid */}
                             {selectedDate && (
                                 <div className="grid grid-cols-3 sm:grid-cols-4 md:grid-cols-5 gap-3 mb-8">
                                     {slotsByDate[selectedDate]?.map((slot) => (
@@ -230,7 +223,6 @@ const ExpertDetailPage = () => {
                                 </div>
                             )}
 
-                            {/* Slot Legend */}
                             <div className="flex flex-wrap gap-4 mb-8 text-xs text-gray-500">
                                 <div className="flex items-center gap-1.5">
                                     <div className="w-3 h-3 rounded-full bg-green-200 border border-green-400" />
@@ -246,10 +238,10 @@ const ExpertDetailPage = () => {
                                 </div>
                             </div>
 
-                            {/* Selected Slot Summary */}
                             {selectedSlot && (
                                 <div className="bg-blue-50 border border-blue-200 rounded-xl p-4 mb-6">
-                                    <p className="text-sm text-blue-700 font-medium">
+                                    <p className="text-sm text-blue-700 font-medium flex items-center gap-1.5">
+                                        <FontAwesomeIcon icon={faCalendarCheck} />
                                         Selected Session
                                     </p>
                                     <p className="text-blue-800 font-bold mt-1">
@@ -264,13 +256,14 @@ const ExpertDetailPage = () => {
                                 </div>
                             )}
 
-                            {/* Book Button */}
                             <button
                                 onClick={handleBookNow}
                                 disabled={!selectedSlot}
                                 className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold
-                                hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed
+                                flex items-center justify-center gap-2"
                             >
+                                <FontAwesomeIcon icon={faCalendarCheck} />
                                 {selectedSlot ? "Proceed to Book" : "Select a Time Slot"}
                             </button>
 

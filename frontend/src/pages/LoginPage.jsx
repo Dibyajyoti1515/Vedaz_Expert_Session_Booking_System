@@ -4,8 +4,6 @@ import { z } from "zod";
 import { Link, useNavigate } from "react-router-dom";
 import toast from "react-hot-toast";
 import useAuthStore from "../store/authStore";
-
-// Font Awesome imports
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import {
     faEnvelope,
