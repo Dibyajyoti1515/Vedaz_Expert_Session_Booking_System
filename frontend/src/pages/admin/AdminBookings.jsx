@@ -94,7 +94,7 @@ const AdminBookings = () => {
                         onChange={(e) => setSearch(e.target.value)}
                         placeholder="Search by name, email or expert..."
                         className="flex-1 min-w-60 px-4 py-3 rounded-xl border border-gray-300
-              text-sm outline-none focus:border-purple-500 transition"
+                        text-sm outline-none focus:border-purple-500 transition"
                     />
 
                     {/* Status Filter */}
@@ -104,7 +104,7 @@ const AdminBookings = () => {
                                 key={s}
                                 onClick={() => setStatusFilter(s)}
                                 className={`px-4 py-2.5 rounded-xl text-sm font-medium transition
-                  ${statusFilter === s
+                                ${statusFilter === s
                                         ? "bg-purple-600 text-white"
                                         : "bg-white border border-gray-300 text-gray-600 hover:border-purple-400"
                                     }`}
@@ -211,7 +211,7 @@ const AdminBookings = () => {
                                                 {/* Status Badge */}
                                                 <td className="px-6 py-4">
                                                     <span className={`px-2.5 py-1 rounded-full text-xs
-                            font-semibold ${STATUS_COLORS[booking.status]}`}>
+                                                    font-semibold ${STATUS_COLORS[booking.status]}`}>
                                                         {booking.status}
                                                     </span>
                                                 </td>
@@ -225,8 +225,8 @@ const AdminBookings = () => {
                                                             handleStatusChange(booking._id, e.target.value)
                                                         }
                                                         className="px-3 py-2 rounded-lg border border-gray-300
-                              text-xs outline-none focus:border-purple-500
-                              bg-white transition disabled:opacity-50"
+                                                        text-xs outline-none focus:border-purple-500
+                                                        bg-white transition disabled:opacity-50"
                                                     >
                                                         {STATUS_OPTIONS.map((s) => (
                                                             <option key={s} value={s}>
@@ -246,12 +246,12 @@ const AdminBookings = () => {
                         {/* Pagination */}
                         {totalPages > 1 && (
                             <div className="flex items-center justify-center gap-2 p-6
-                border-t border-gray-100">
+                            border-t border-gray-100">
                                 <button
                                     onClick={() => setPage((p) => Math.max(p - 1, 1))}
                                     disabled={page === 1}
                                     className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                    text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition"
+                                    text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition"
                                 >
                                     Previous
                                 </button>
@@ -260,7 +260,7 @@ const AdminBookings = () => {
                                         key={i}
                                         onClick={() => setPage(i + 1)}
                                         className={`w-10 h-10 rounded-lg text-sm font-medium transition
-                      ${page === i + 1
+                                            ${page === i + 1
                                                 ? "bg-purple-600 text-white"
                                                 : "border border-gray-300 text-gray-600 hover:bg-gray-100"
                                             }`}
@@ -272,7 +272,7 @@ const AdminBookings = () => {
                                     onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                                     disabled={page === totalPages}
                                     className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                    text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition"
+                                    text-gray-600 hover:bg-gray-100 disabled:opacity-40 transition"
                                 >
                                     Next
                                 </button>
