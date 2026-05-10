@@ -6,6 +6,22 @@ import useBookingStore from "../store/bookingStore";
 import socket from "../services/socket";
 import Loader from "../components/Loader";
 
+// Font Awesome imports
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faCalendarDays,
+    faClock,
+    faCalendarCheck,
+    faStickyNote,
+    faEnvelope,
+    faMobileScreen,
+    faLayerGroup,
+    faHourglassHalf,
+    faCircleCheck,
+    faCheckDouble,
+    faSearch,
+} from "@fortawesome/free-solid-svg-icons";
+
 const STATUS_COLORS = {
     pending: {
         bg: "bg-yellow-50",
@@ -27,7 +43,7 @@ const STATUS_COLORS = {
     },
 };
 
-const BookingCard = ({ booking, onStatusUpdate }) => {
+const BookingCard = ({ booking }) => {
     const colors = STATUS_COLORS[booking.status];
     const expert = booking.expertId;
 
@@ -78,7 +94,10 @@ const BookingCard = ({ booking, onStatusUpdate }) => {
                         <div className="grid grid-cols-2 sm:grid-cols-3 gap-3 mb-4">
 
                             <div className="bg-gray-50 rounded-xl p-3">
-                                <p className="text-xs text-gray-400 mb-0.5">Date</p>
+                                <p className="text-xs text-gray-400 mb-0.5 flex items-center gap-1">
+                                    <FontAwesomeIcon icon={faCalendarDays} className="text-gray-400" />
+                                    Date
+                                </p>
                                 <p className="text-sm font-semibold text-gray-700">
                                     {new Date(booking.date).toLocaleDateString("en-US", {
                                         month: "short",
@@ -89,14 +108,20 @@ const BookingCard = ({ booking, onStatusUpdate }) => {
                             </div>
 
                             <div className="bg-gray-50 rounded-xl p-3">
-                                <p className="text-xs text-gray-400 mb-0.5">Time</p>
+                                <p className="text-xs text-gray-400 mb-0.5 flex items-center gap-1">
+                                    <FontAwesomeIcon icon={faClock} className="text-gray-400" />
+                                    Time
+                                </p>
                                 <p className="text-sm font-semibold text-gray-700">
                                     {booking.timeSlot}
                                 </p>
                             </div>
 
                             <div className="bg-gray-50 rounded-xl p-3">
-                                <p className="text-xs text-gray-400 mb-0.5">Booked On</p>
+                                <p className="text-xs text-gray-400 mb-0.5 flex items-center gap-1">
+                                    <FontAwesomeIcon icon={faCalendarCheck} className="text-gray-400" />
+                                    Booked On
+                                </p>
                                 <p className="text-sm font-semibold text-gray-700">
                                     {new Date(booking.createdAt).toLocaleDateString("en-US", {
                                         month: "short",
@@ -111,15 +136,24 @@ const BookingCard = ({ booking, onStatusUpdate }) => {
                         {/* Notes */}
                         {booking.notes && (
                             <div className="bg-gray-50 rounded-xl p-3 mb-4">
-                                <p className="text-xs text-gray-400 mb-0.5">Notes</p>
+                                <p className="text-xs text-gray-400 mb-0.5 flex items-center gap-1">
+                                    <FontAwesomeIcon icon={faStickyNote} className="text-gray-400" />
+                                    Notes
+                                </p>
                                 <p className="text-sm text-gray-600">{booking.notes}</p>
                             </div>
                         )}
 
                         {/* Contact Info */}
                         <div className="flex flex-wrap gap-4 text-xs text-gray-500">
-                            <span>📧 {booking.email}</span>
-                            <span>📱 {booking.phone}</span>
+                            <span className="flex items-center gap-1.5">
+                                <FontAwesomeIcon icon={faEnvelope} className="text-gray-400" />
+                                {booking.email}
+                            </span>
+                            <span className="flex items-center gap-1.5">
+                                <FontAwesomeIcon icon={faMobileScreen} className="text-gray-400" />
+                                {booking.phone}
+                            </span>
                         </div>
 
                     </div>
@@ -194,12 +228,16 @@ const MyBookingsPage = () => {
                 {/* Stats Row */}
                 <div className="grid grid-cols-2 sm:grid-cols-4 gap-4 mb-8">
                     {[
-                        { label: "Total", count: counts.all, color: "text-gray-700" },
-                        { label: "Pending", count: counts.pending, color: "text-yellow-600" },
-                        { label: "Confirmed", count: counts.confirmed, color: "text-green-600" },
-                        { label: "Completed", count: counts.completed, color: "text-blue-600" },
+                        { label: "Total", count: counts.all, color: "text-gray-700", icon: faLayerGroup },
+                        { label: "Pending", count: counts.pending, color: "text-yellow-600", icon: faHourglassHalf },
+                        { label: "Confirmed", count: counts.confirmed, color: "text-green-600", icon: faCircleCheck },
+                        { label: "Completed", count: counts.completed, color: "text-blue-600", icon: faCheckDouble },
                     ].map((stat) => (
                         <div key={stat.label} className="bg-white rounded-2xl p-4 shadow-sm text-center">
+                            <FontAwesomeIcon
+                                icon={stat.icon}
+                                className={`text-lg mb-1 ${stat.color}`}
+                            />
                             <p className={`text-2xl font-bold ${stat.color}`}>{stat.count}</p>
                             <p className="text-xs text-gray-400 mt-0.5">{stat.label}</p>
                         </div>
@@ -250,7 +288,10 @@ const MyBookingsPage = () => {
                 {/* Empty State */}
                 {!isLoading && !error && filteredBookings.length === 0 && (
                     <div className="text-center py-20">
-                        <p className="text-5xl mb-4">📅</p>
+                        <FontAwesomeIcon
+                            icon={faSearch}
+                            className="text-5xl text-gray-300 mb-4"
+                        />
                         <p className="text-gray-500 text-lg font-medium">
                             No {activeFilter === "all" ? "" : activeFilter} bookings found
                         </p>
