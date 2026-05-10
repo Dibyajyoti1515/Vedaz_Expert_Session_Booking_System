@@ -4,6 +4,22 @@ import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { z } from "zod";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faUser,
+    faTag,
+    faBriefcase,
+    faStar,
+    faLink,
+    faFileAlt,
+    faCalendarAlt,
+    faClock,
+    faPlus,
+    faTrash,
+    faCheckCircle,
+    faSpinner,
+} from "@fortawesome/free-solid-svg-icons";
+
 import AdminSidebar from "../../components/AdminSidebar";
 import api from "../../services/api";
 
@@ -111,12 +127,11 @@ const AdminAddExpert = () => {
 
             <main className="flex-1 p-8">
 
-                {/* Header */}
                 <div className="mb-8">
                     <button
                         onClick={() => navigate("/admin/experts")}
                         className="flex items-center gap-2 text-gray-500 hover:text-gray-700
-              text-sm mb-4 transition"
+                        text-sm mb-4 transition"
                     >
                         ← Back to Experts
                     </button>
@@ -128,7 +143,6 @@ const AdminAddExpert = () => {
 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
 
-                    {/* Expert Details Form */}
                     <div className="bg-white rounded-2xl shadow-md p-8">
                         <h2 className="text-lg font-bold text-gray-800 mb-6">
                             Expert Details
@@ -140,9 +154,9 @@ const AdminAddExpert = () => {
                             className="space-y-5"
                         >
 
-                            {/* Name */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    <FontAwesomeIcon icon={faUser} className="mr-2 text-purple-500" />
                                     Full Name
                                 </label>
                                 <input
@@ -150,7 +164,7 @@ const AdminAddExpert = () => {
                                     type="text"
                                     placeholder="Dr. John Smith"
                                     className={`w-full px-4 py-3 rounded-xl border text-sm outline-none
-                    transition ${errors.name
+                                    transition ${errors.name
                                             ? "border-red-500"
                                             : "border-gray-300 focus:border-purple-500"
                                         }`}
@@ -160,15 +174,15 @@ const AdminAddExpert = () => {
                                 )}
                             </div>
 
-                            {/* Category */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    <FontAwesomeIcon icon={faTag} className="mr-2 text-purple-500" />
                                     Category
                                 </label>
                                 <select
                                     {...register("category")}
                                     className={`w-full px-4 py-3 rounded-xl border text-sm outline-none
-                    transition bg-white ${errors.category
+                                    transition bg-white ${errors.category
                                             ? "border-red-500"
                                             : "border-gray-300 focus:border-purple-500"
                                         }`}
@@ -183,10 +197,10 @@ const AdminAddExpert = () => {
                                 )}
                             </div>
 
-                            {/* Experience + Rating */}
                             <div className="grid grid-cols-2 gap-4">
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <FontAwesomeIcon icon={faBriefcase} className="mr-2 text-purple-500" />
                                         Experience (years)
                                     </label>
                                     <input
@@ -195,7 +209,7 @@ const AdminAddExpert = () => {
                                         min="0"
                                         placeholder="5"
                                         className={`w-full px-4 py-3 rounded-xl border text-sm outline-none
-                      transition ${errors.experience
+                                        transition ${errors.experience
                                                 ? "border-red-500"
                                                 : "border-gray-300 focus:border-purple-500"
                                             }`}
@@ -209,6 +223,7 @@ const AdminAddExpert = () => {
 
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <FontAwesomeIcon icon={faStar} className="mr-2 text-yellow-500" />
                                         Rating (0-5)
                                     </label>
                                     <input
@@ -219,7 +234,7 @@ const AdminAddExpert = () => {
                                         step="0.1"
                                         placeholder="4.5"
                                         className={`w-full px-4 py-3 rounded-xl border text-sm outline-none
-                      transition ${errors.rating
+                                        transition ${errors.rating
                                                 ? "border-red-500"
                                                 : "border-gray-300 focus:border-purple-500"
                                             }`}
@@ -232,27 +247,27 @@ const AdminAddExpert = () => {
                                 </div>
                             </div>
 
-                            {/* Avatar URL */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
-                                    Avatar URL{" "}
-                                    <span className="text-gray-400 font-normal">(optional)</span>
+                                    <FontAwesomeIcon icon={faLink} className="mr-2 text-purple-500" />
+                                    Avatar URL
+                                    <span className="text-gray-400 font-normal ml-1">(optional)</span>
                                 </label>
                                 <input
                                     {...register("avatar")}
                                     type="text"
                                     placeholder="https://example.com/avatar.jpg"
                                     className="w-full px-4 py-3 rounded-xl border border-gray-300
-                    focus:border-purple-500 text-sm outline-none transition"
+                                    focus:border-purple-500 text-sm outline-none transition"
                                 />
                                 {errors.avatar && (
                                     <p className="text-red-500 text-xs mt-1">{errors.avatar.message}</p>
                                 )}
                             </div>
 
-                            {/* Bio */}
                             <div>
                                 <label className="block text-sm font-medium text-gray-700 mb-1">
+                                    <FontAwesomeIcon icon={faFileAlt} className="mr-2 text-purple-500" />
                                     Bio
                                 </label>
                                 <textarea
@@ -260,7 +275,7 @@ const AdminAddExpert = () => {
                                     rows={4}
                                     placeholder="Describe the expert's background and expertise..."
                                     className={`w-full px-4 py-3 rounded-xl border text-sm outline-none
-                    transition resize-none ${errors.bio
+                                    transition resize-none ${errors.bio
                                             ? "border-red-500"
                                             : "border-gray-300 focus:border-purple-500"
                                         }`}
@@ -273,10 +288,8 @@ const AdminAddExpert = () => {
                         </form>
                     </div>
 
-                    {/* Slots Section */}
                     <div className="space-y-6">
 
-                        {/* Add Slot */}
                         <div className="bg-white rounded-2xl shadow-md p-8">
                             <h2 className="text-lg font-bold text-gray-800 mb-6">
                                 Add Time Slots
@@ -284,9 +297,9 @@ const AdminAddExpert = () => {
 
                             <div className="space-y-4">
 
-                                {/* Date Picker */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <FontAwesomeIcon icon={faCalendarAlt} className="mr-2 text-purple-500" />
                                         Select Date
                                     </label>
                                     <input
@@ -295,20 +308,20 @@ const AdminAddExpert = () => {
                                         min={new Date().toISOString().split("T")[0]}
                                         onChange={(e) => setSlotDate(e.target.value)}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-300
-                      focus:border-purple-500 text-sm outline-none transition"
+                                        focus:border-purple-500 text-sm outline-none transition"
                                     />
                                 </div>
 
-                                {/* Time Picker */}
                                 <div>
                                     <label className="block text-sm font-medium text-gray-700 mb-1">
+                                        <FontAwesomeIcon icon={faClock} className="mr-2 text-purple-500" />
                                         Select Time
                                     </label>
                                     <select
                                         value={slotTime}
                                         onChange={(e) => setSlotTime(e.target.value)}
                                         className="w-full px-4 py-3 rounded-xl border border-gray-300
-                      focus:border-purple-500 text-sm outline-none transition bg-white"
+                                        focus:border-purple-500 text-sm outline-none transition bg-white"
                                     >
                                         <option value="">Select Time</option>
                                         {TIME_OPTIONS.map((t) => (
@@ -317,20 +330,19 @@ const AdminAddExpert = () => {
                                     </select>
                                 </div>
 
-                                {/* Add Slot Button */}
                                 <button
                                     type="button"
                                     onClick={addSlot}
                                     className="w-full bg-purple-600 text-white py-3 rounded-xl
-                    text-sm font-semibold hover:bg-purple-700 transition"
+                                    text-sm font-semibold hover:bg-purple-700 transition"
                                 >
-                                    + Add Slot
+                                    <FontAwesomeIcon icon={faPlus} className="mr-2" />
+                                    Add Slot
                                 </button>
 
                             </div>
                         </div>
 
-                        {/* Slots Preview */}
                         {slots.length > 0 && (
                             <div className="bg-white rounded-2xl shadow-md p-8">
                                 <h2 className="text-lg font-bold text-gray-800 mb-4">
@@ -341,7 +353,7 @@ const AdminAddExpert = () => {
                                     {Object.entries(slotsByDate).map(([date, dateSlots]) => (
                                         <div key={date}>
                                             <p className="text-xs font-semibold text-gray-400
-                        uppercase mb-2">
+                                            uppercase mb-2">
                                                 {new Date(date).toLocaleDateString("en-US", {
                                                     weekday: "long",
                                                     month: "long",
@@ -353,8 +365,8 @@ const AdminAddExpert = () => {
                                                     <div
                                                         key={index}
                                                         className="flex items-center gap-1.5 bg-purple-50
-                              border border-purple-200 text-purple-700 px-3 py-1.5
-                              rounded-lg text-xs font-medium"
+                                                        border border-purple-200 text-purple-700 px-3 py-1.5
+                                                        rounded-lg text-xs font-medium"
                                                     >
                                                         {slot.time}
                                                         <button
@@ -365,9 +377,9 @@ const AdminAddExpert = () => {
                                                                 ))
                                                             }
                                                             className="text-purple-400 hover:text-red-500
-                                transition font-bold ml-1"
+                                                            transition font-bold ml-1"
                                                         >
-                                                            ×
+                                                            <FontAwesomeIcon icon={faTrash} />
                                                         </button>
                                                     </div>
                                                 ))}
@@ -378,16 +390,25 @@ const AdminAddExpert = () => {
                             </div>
                         )}
 
-                        {/* Submit Button */}
                         <button
                             type="submit"
                             form="expert-form"
                             disabled={isLoading}
                             className="w-full bg-green-600 text-white py-4 rounded-2xl
-                font-bold text-sm hover:bg-green-700 transition
-                disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
+                            font-bold text-sm hover:bg-green-700 transition
+                            disabled:opacity-50 disabled:cursor-not-allowed shadow-md"
                         >
-                            {isLoading ? "Adding Expert..." : "✅ Save Expert"}
+                            {isLoading ? (
+                                <>
+                                    <FontAwesomeIcon icon={faSpinner} className="mr-2 animate-spin" />
+                                    Adding Expert...
+                                </>
+                            ) : (
+                                <>
+                                    <FontAwesomeIcon icon={faCheckCircle} className="mr-2" />
+                                    Save Expert
+                                </>
+                            )}
                         </button>
 
                     </div>
