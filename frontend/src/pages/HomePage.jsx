@@ -2,17 +2,35 @@ import { useState, useEffect, useCallback } from "react";
 import api from "../services/api";
 import ExpertCard from "../components/ExpertCard";
 import Loader from "../components/Loader";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faSearch,
+    faChevronLeft,
+    faChevronRight,
+    faRotateRight,
+    faUserSlash,
+    faTriangleExclamation,
+    faPenNib,
+    faLaptopCode,
+    faHeartPulse,
+    faScaleBalanced,
+    faBriefcase,
+    faGraduationCap,
+    faBullhorn,
+    faCoins,
+    faBorderAll,
+} from "@fortawesome/free-solid-svg-icons";
 
 const CATEGORIES = [
-    "All",
-    "Design",
-    "Finance",
-    "Marketing",
-    "Technology",
-    "Health",
-    "Education",
-    "Legal",
-    "Business",
+    { label: "All", icon: faBorderAll },
+    { label: "Design", icon: faPenNib },
+    { label: "Finance", icon: faCoins },
+    { label: "Marketing", icon: faBullhorn },
+    { label: "Technology", icon: faLaptopCode },
+    { label: "Health", icon: faHeartPulse },
+    { label: "Education", icon: faGraduationCap },
+    { label: "Legal", icon: faScaleBalanced },
+    { label: "Business", icon: faBriefcase },
 ];
 
 const HomePage = () => {
@@ -32,22 +50,14 @@ const HomePage = () => {
         setError(null);
 
         try {
-            const params = new URLSearchParams({
-                page,
-                limit: LIMIT,
-            });
-
+            const params = new URLSearchParams({ page, limit: LIMIT });
             if (search) params.append("search", search);
-            if (category !== "All") {
-                params.append("category", category);
-            }
+            if (category !== "All") params.append("category", category);
 
             const res = await api.get(`/experts?${params.toString()}`);
-
             setExperts(res.data.data);
             setTotalPages(res.data.pages);
             setTotal(res.data.total);
-
         } catch (err) {
             setError(
                 err.response?.data?.message ||
@@ -63,7 +73,6 @@ const HomePage = () => {
         fetchExperts();
     }, [fetchExperts]);
 
-    // Reset page when filter changes
     useEffect(() => {
         setPage(1);
     }, [search, category]);
@@ -96,18 +105,26 @@ const HomePage = () => {
                     onSubmit={handleSearch}
                     className="max-w-xl mx-auto flex gap-2"
                 >
-                    <input
-                        type="text"
-                        value={searchInput}
-                        onChange={(e) => setSearchInput(e.target.value)}
-                        placeholder="Search experts by name..."
-                        className="flex-1 px-5 py-3 rounded-xl text-gray-800 text-sm outline-none"
-                    />
+                    <div className="flex-1 relative">
+                        <FontAwesomeIcon
+                            icon={faSearch}
+                            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400 text-sm"
+                        />
+                        <input
+                            type="text"
+                            value={searchInput}
+                            onChange={(e) => setSearchInput(e.target.value)}
+                            placeholder="Search experts by name..."
+                            className="w-full pl-10 pr-4 py-3 rounded-xl text-gray-800
+                                text-sm outline-none"
+                        />
+                    </div>
                     <button
                         type="submit"
                         className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold
-                        text-sm hover:bg-blue-50 transition"
+                            text-sm hover:bg-blue-50 transition flex items-center gap-2"
                     >
+                        <FontAwesomeIcon icon={faSearch} />
                         Search
                     </button>
                 </form>
@@ -119,22 +136,25 @@ const HomePage = () => {
                 <div className="flex flex-wrap gap-2 mb-8">
                     {CATEGORIES.map((cat) => (
                         <button
-                            key={cat}
-                            onClick={() => handleCategoryChange(cat)}
+                            key={cat.label}
+                            onClick={() => handleCategoryChange(cat.label)}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition
-                                ${category === cat
+                                flex items-center gap-2
+                                ${category === cat.label
                                     ? "bg-blue-600 text-white"
                                     : "bg-white text-gray-600 border border-gray-300 hover:border-blue-400"
                                 }`}
                         >
-                            {cat}
+                            <FontAwesomeIcon icon={cat.icon} />
+                            {cat.label}
                         </button>
                     ))}
                 </div>
 
                 {/* Results Count */}
                 {!isLoading && !error && (
-                    <p className="text-sm text-gray-500 mb-6">
+                    <p className="text-sm text-gray-500 mb-6 flex items-center gap-2">
+                        <FontAwesomeIcon icon={faSearch} className="text-gray-400" />
                         Showing {experts.length} of {total} experts
                         {search && ` for "${search}"`}
                         {category !== "All" && ` in ${category}`}
@@ -147,11 +167,17 @@ const HomePage = () => {
                 {/* Error */}
                 {error && !isLoading && (
                     <div className="text-center py-20">
+                        <FontAwesomeIcon
+                            icon={faTriangleExclamation}
+                            className="text-red-400 text-5xl mb-4"
+                        />
                         <p className="text-red-500 text-lg mb-4">{error}</p>
                         <button
                             onClick={fetchExperts}
-                            className="bg-blue-600 text-white px-6 py-2 rounded-lg hover:bg-blue-700"
+                            className="bg-blue-600 text-white px-6 py-2 rounded-lg
+                                hover:bg-blue-700 flex items-center gap-2 mx-auto"
                         >
+                            <FontAwesomeIcon icon={faRotateRight} />
                             Try Again
                         </button>
                     </div>
@@ -160,7 +186,10 @@ const HomePage = () => {
                 {/* Empty State */}
                 {!isLoading && !error && experts.length === 0 && (
                     <div className="text-center py-20">
-                        <p className="text-gray-400 text-6xl mb-4">🔍</p>
+                        <FontAwesomeIcon
+                            icon={faUserSlash}
+                            className="text-gray-300 text-6xl mb-4"
+                        />
                         <p className="text-gray-500 text-lg">No experts found</p>
                         <p className="text-gray-400 text-sm mt-1">
                             Try a different search or category
@@ -186,9 +215,10 @@ const HomePage = () => {
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
                             disabled={page === 1}
                             className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                            text-gray-600 hover:bg-gray-100 disabled:opacity-40
-                            disabled:cursor-not-allowed transition"
+                                text-gray-600 hover:bg-gray-100 disabled:opacity-40
+                                disabled:cursor-not-allowed transition flex items-center gap-2"
                         >
+                            <FontAwesomeIcon icon={faChevronLeft} />
                             Previous
                         </button>
 
@@ -212,10 +242,11 @@ const HomePage = () => {
                             onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                             disabled={page === totalPages}
                             className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                            text-gray-600 hover:bg-gray-100 disabled:opacity-40
-                            disabled:cursor-not-allowed transition"
+                                text-gray-600 hover:bg-gray-100 disabled:opacity-40
+                                disabled:cursor-not-allowed transition flex items-center gap-2"
                         >
                             Next
+                            <FontAwesomeIcon icon={faChevronRight} />
                         </button>
 
                     </div>
