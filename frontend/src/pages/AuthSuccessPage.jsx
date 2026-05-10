@@ -18,10 +18,8 @@ const AuthSuccessPage = () => {
                 return;
             }
 
-            // Save token to localStorage
             localStorage.setItem("token", token);
 
-            // Fetch user info with token
             try {
                 const res = await api.get("/auth/me", {
                     headers: { Authorization: `Bearer ${token}` },

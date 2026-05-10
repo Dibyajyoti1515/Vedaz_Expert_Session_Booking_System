@@ -154,7 +154,7 @@ const BookingPage = () => {
                                 type="text"
                                 placeholder="John Doe"
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                  ${errors.name
+                                    ${errors.name
                                         ? "border-red-500 focus:border-red-500"
                                         : "border-gray-300 focus:border-blue-500"
                                     }`}
@@ -176,7 +176,7 @@ const BookingPage = () => {
                                 type="email"
                                 placeholder="john@gmail.com"
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                  ${errors.email
+                                    ${errors.email
                                         ? "border-red-500 focus:border-red-500"
                                         : "border-gray-300 focus:border-blue-500"
                                     }`}
@@ -198,7 +198,7 @@ const BookingPage = () => {
                                 type="tel"
                                 placeholder="9876543210"
                                 className={`w-full px-4 py-3 rounded-xl border text-sm outline-none transition
-                  ${errors.phone
+                                    ${errors.phone
                                         ? "border-red-500 focus:border-red-500"
                                         : "border-gray-300 focus:border-blue-500"
                                     }`}
@@ -229,11 +229,10 @@ const BookingPage = () => {
                                 }
                                 readOnly
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200
-                  bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
+                                bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
                             />
                         </div>
 
-                        {/* Time Slot — Read Only */}
                         <div>
                             <label className="block text-sm font-medium text-gray-700 mb-1">
                                 Time Slot
@@ -243,7 +242,7 @@ const BookingPage = () => {
                                 value={timeSlot || ""}
                                 readOnly
                                 className="w-full px-4 py-3 rounded-xl border border-gray-200
-                  bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
+                                bg-gray-50 text-gray-500 text-sm cursor-not-allowed"
                             />
                         </div>
 
@@ -258,7 +257,7 @@ const BookingPage = () => {
                                 rows={4}
                                 placeholder="Describe what you'd like to discuss in this session..."
                                 className="w-full px-4 py-3 rounded-xl border border-gray-300
-                  focus:border-blue-500 text-sm outline-none transition resize-none"
+                                focus:border-blue-500 text-sm outline-none transition resize-none"
                             />
                         </div>
 
@@ -267,8 +266,8 @@ const BookingPage = () => {
                             type="submit"
                             disabled={isLoading}
                             className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold
-                hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed
-                text-sm"
+                            hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed
+                            text-sm"
                         >
                             {isLoading ? (
                                 <span className="flex items-center justify-center gap-2">

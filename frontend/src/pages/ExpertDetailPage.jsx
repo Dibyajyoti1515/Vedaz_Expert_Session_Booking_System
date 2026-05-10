@@ -194,7 +194,7 @@ const ExpertDetailPage = () => {
                                             setSelectedSlot(null);
                                         }}
                                         className={`px-4 py-2 rounded-xl text-sm font-medium transition
-                      ${selectedDate === date
+                                            ${selectedDate === date
                                                 ? "bg-blue-600 text-white"
                                                 : "bg-gray-100 text-gray-600 hover:bg-gray-200"
                                             }`}
@@ -217,7 +217,7 @@ const ExpertDetailPage = () => {
                                             onClick={() => handleSlotSelect(slot)}
                                             disabled={slot.isBooked}
                                             className={`py-2.5 px-3 rounded-xl text-sm font-medium transition
-                        ${slot.isBooked
+                                                ${slot.isBooked
                                                     ? "bg-gray-100 text-gray-400 cursor-not-allowed line-through"
                                                     : selectedSlot?.id === slot.id
                                                         ? "bg-blue-600 text-white ring-2 ring-blue-400"
@@ -269,7 +269,7 @@ const ExpertDetailPage = () => {
                                 onClick={handleBookNow}
                                 disabled={!selectedSlot}
                                 className="w-full bg-blue-600 text-white py-3.5 rounded-xl font-semibold
-                  hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
+                                hover:bg-blue-700 transition disabled:opacity-50 disabled:cursor-not-allowed"
                             >
                                 {selectedSlot ? "Proceed to Book" : "Select a Time Slot"}
                             </button>

@@ -106,7 +106,7 @@ const HomePage = () => {
                     <button
                         type="submit"
                         className="bg-white text-blue-600 px-6 py-3 rounded-xl font-semibold
-              text-sm hover:bg-blue-50 transition"
+                        text-sm hover:bg-blue-50 transition"
                     >
                         Search
                     </button>
@@ -122,7 +122,7 @@ const HomePage = () => {
                             key={cat}
                             onClick={() => handleCategoryChange(cat)}
                             className={`px-4 py-2 rounded-full text-sm font-medium transition
-                ${category === cat
+                                ${category === cat
                                     ? "bg-blue-600 text-white"
                                     : "bg-white text-gray-600 border border-gray-300 hover:border-blue-400"
                                 }`}
@@ -186,8 +186,8 @@ const HomePage = () => {
                             onClick={() => setPage((p) => Math.max(p - 1, 1))}
                             disabled={page === 1}
                             className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                text-gray-600 hover:bg-gray-100 disabled:opacity-40
-                disabled:cursor-not-allowed transition"
+                            text-gray-600 hover:bg-gray-100 disabled:opacity-40
+                            disabled:cursor-not-allowed transition"
                         >
                             Previous
                         </button>
@@ -198,7 +198,7 @@ const HomePage = () => {
                                 key={i}
                                 onClick={() => setPage(i + 1)}
                                 className={`w-10 h-10 rounded-lg text-sm font-medium transition
-                  ${page === i + 1
+                                    ${page === i + 1
                                         ? "bg-blue-600 text-white"
                                         : "border border-gray-300 text-gray-600 hover:bg-gray-100"
                                     }`}
@@ -212,8 +212,8 @@ const HomePage = () => {
                             onClick={() => setPage((p) => Math.min(p + 1, totalPages))}
                             disabled={page === totalPages}
                             className="px-4 py-2 rounded-lg border border-gray-300 text-sm
-                text-gray-600 hover:bg-gray-100 disabled:opacity-40
-                disabled:cursor-not-allowed transition"
+                            text-gray-600 hover:bg-gray-100 disabled:opacity-40
+                            disabled:cursor-not-allowed transition"
                         >
                             Next
                         </button>

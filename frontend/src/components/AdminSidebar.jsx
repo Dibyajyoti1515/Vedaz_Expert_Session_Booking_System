@@ -1,27 +1,37 @@
 import { NavLink, useNavigate } from "react-router-dom";
 import useAuthStore from "../store/authStore";
 import toast from "react-hot-toast";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import {
+    faChartBar,
+    faUserTie,
+    faUserPlus,
+    faCalendarCheck,
+    faHome,
+    faRightFromBracket,
+    faShieldHalved,
+} from "@fortawesome/free-solid-svg-icons";
 
 const MENU = [
     {
         label: "Dashboard",
         path: "/admin",
-        icon: "📊",
+        icon: faChartBar,
     },
     {
         label: "Manage Experts",
         path: "/admin/experts",
-        icon: "👨‍💼",
+        icon: faUserTie,
     },
     {
         label: "Add Expert",
         path: "/admin/experts/add",
-        icon: "➕",
+        icon: faUserPlus,
     },
     {
         label: "Manage Bookings",
         path: "/admin/bookings",
-        icon: "📅",
+        icon: faCalendarCheck,
     },
 ];
 
@@ -40,15 +50,23 @@ const AdminSidebar = () => {
 
             {/* Logo */}
             <div className="px-6 py-6 border-b border-gray-700">
-                <h1 className="text-xl font-bold text-white">ExpertBook</h1>
-                <p className="text-xs text-gray-400 mt-0.5">Admin Panel</p>
+                <div className="flex items-center gap-2">
+                    <FontAwesomeIcon
+                        icon={faShieldHalved}
+                        className="text-purple-400 text-xl"
+                    />
+                    <div>
+                        <h1 className="text-xl font-bold text-white">ExpertBook</h1>
+                        <p className="text-xs text-gray-400 mt-0.5">Admin Panel</p>
+                    </div>
+                </div>
             </div>
 
             {/* Admin Info */}
             <div className="px-6 py-4 border-b border-gray-700">
                 <div className="flex items-center gap-3">
                     <div className="w-10 h-10 rounded-full bg-purple-600 flex items-center
-            justify-center text-white font-bold text-sm">
+                        justify-center text-white font-bold text-sm">
                         {user?.name?.charAt(0).toUpperCase()}
                     </div>
                     <div>
@@ -66,14 +84,18 @@ const AdminSidebar = () => {
                         to={item.path}
                         end={item.path === "/admin"}
                         className={({ isActive }) =>
-                            `flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-medium transition
-              ${isActive
+                            `flex items-center gap-3 px-4 py-3 rounded-xl text-sm
+                            font-medium transition
+                            ${isActive
                                 ? "bg-purple-600 text-white"
                                 : "text-gray-400 hover:bg-gray-800 hover:text-white"
                             }`
                         }
                     >
-                        <span>{item.icon}</span>
+                        <FontAwesomeIcon
+                            icon={item.icon}
+                            className="w-4 h-4"
+                        />
                         {item.label}
                     </NavLink>
                 ))}
@@ -84,17 +106,24 @@ const AdminSidebar = () => {
                 <NavLink
                     to="/"
                     className="flex items-center gap-3 px-4 py-3 rounded-xl text-sm
-            font-medium text-gray-400 hover:bg-gray-800 hover:text-white transition"
+                        font-medium text-gray-400 hover:bg-gray-800 hover:text-white transition"
                 >
-                    <span>🏠</span>
+                    <FontAwesomeIcon
+                        icon={faHome}
+                        className="w-4 h-4"
+                    />
                     Back to Site
                 </NavLink>
+
                 <button
                     onClick={handleLogout}
                     className="w-full flex items-center gap-3 px-4 py-3 rounded-xl text-sm
-            font-medium text-red-400 hover:bg-red-900 hover:text-red-300 transition"
+                        font-medium text-red-400 hover:bg-red-900 hover:text-red-300 transition"
                 >
-                    <span>🚪</span>
+                    <FontAwesomeIcon
+                        icon={faRightFromBracket}
+                        className="w-4 h-4"
+                    />
                     Logout
                 </button>
             </div>
